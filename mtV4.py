@@ -1,11 +1,16 @@
 # -*- coding:utf-8 -*-
+# -------------------------------
+# @Author : github@arvinsblog https://github.com/arvinsblog/deepsea
+# @Time : 2024-10-1 13:10:56
+# 收集和修复能用的脚本
+# -------------------------------
 """
 美团 外卖红包
 自行捉包把meituan.com里面的token(一般在请求头里)填到变量 meituanCookie 中,
 多账号换行或&隔开
 export meituanCookie="AgGZYgsTHsxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-cron: 0 0,6 * * *
+cron: 59 0,9,17 * * *
 const $ = new Env("美团领券");
 """
 import requests

@@ -3,6 +3,7 @@
 # -------------------------------
 # @Author : github@arvinsblog https://github.com/arvinsblog/deepsea
 # @Time : 2024-10-1 13:10:56
+# 收集和修复能用的脚本
 # -------------------------------
 # cron "15 20 6,15 * * *" script-path=xxx.py,tag=匹配cron用
 # const $ = new Env('小米运动')
