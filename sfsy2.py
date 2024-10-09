@@ -198,7 +198,7 @@ class RUN:
     def get_SignTaskList(self, END=False):
         if not END: print(f'>>>开始获取签到任务列表')
         json_data = {
-            'channelType': '3',
+            'channelType': '1',
             'deviceId': self.get_deviceId(),
         }
         url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~integralTaskStrategyService~queryPointTaskAndSignFromES'
