@@ -429,13 +429,13 @@ class RUN:
                     time.sleep(2)
 
     def EAR_END_2023_TaskList(self):
-        print('\n>>>>>>开始年终集卡任务')
+        print('\n>>>>>>开始32周年庆任务')
         # 任务列表
         json_data = {
-            "activityCode": "YEAR_END_2023",
+            "activityCode": "ANNIVERSARY_2025",
             "channelType": "MINI_PROGRAM"
         }
-        self.headers['channel'] = 'xcx23nz'
+        self.headers['channel'] = '32annixcx'
         self.headers['platform'] = 'MINI_PROGRAM'
         self.headers['syscode'] = 'MCS-MIMP-CORE'
 
@@ -453,6 +453,9 @@ class RUN:
                     continue
                 if self.taskType == 'INTEGRAL_EXCHANGE':
                     self.EAR_END_2023_ExchangeCard()
+                elif self.taskType == 'PLAY_ACTIVITY_GAME':
+                    self.DRAGONBOAT_2024_index()
+                    self.DRAGONBOAT_2024_Game_init()
                 elif self.taskType == 'CLICK_MY_SETTING':
                     self.taskCode = item["taskCode"]
                     self.addDeliverPrefer()
@@ -466,7 +469,7 @@ class RUN:
                 # if self.taskType == 'BEES_GAME_TASK_TYPE':
                 #     self.honey_damaoxian()
         self.EAR_END_2023_getAward()
-        self.EAR_END_2023_GuessIdiom()
+        #self.EAR_END_2023_GuessIdiom()
 
     def addDeliverPrefer(self):
         print(f'>>>开始【{self.title}】任务')
