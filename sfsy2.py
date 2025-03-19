@@ -2,7 +2,7 @@
 # -- coding: utf-8 --
 # -------------------------------
 # @Author : github@arvinsblog https://github.com/arvinsblog/deepsea
-# @Time : 2024-10-1 13:10:56
+# @Time : 2025-3-19 13:30:25
 # 收集和修复能用的脚本
 # -------------------------------
 """
@@ -531,7 +531,7 @@ class RUN:
 
     def EAR_END_2023_getAward(self):
         print(f'>>>开始抽卡')
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~yearEnd2023GardenPartyService~getAward'
+        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~anniversary2025ClaimService~claim'
         for l in range(10):
             for i in range(0, 3):
                 json_data = {
@@ -543,12 +543,13 @@ class RUN:
                     receivedAccountList = response['obj']['receivedAccountList']
                     for card in receivedAccountList:
                         print(f'>获得：【{card["currency"]}】卡【{card["amount"]}】张！')
-                elif response.get('errorMessage') == '达到限流阈值，请稍后重试':
+                elif response.get('errorMessage') == '用户账户余额不足':
                     break
                 elif response.get('errorMessage') == '用户信息失效，请退出重新进入':
                     break
                 else:
                     print(f'>抽卡失败：{response.get("errorMessage")}')
+                    break
                 time.sleep(3)
 
     def EAR_END_2023_GuessIdiom(self):
@@ -566,6 +567,45 @@ class RUN:
                 #     print(f'>获得：【{card["urrency"]}】卡【{card["amount"]}】张！')
             else:
                 print(f'第{i}关失败！')
+
+    #查询新年回馈卡片数量
+    def EAR_END_2023_query(self):
+        print(f'>>>开始查询卡片数量')
+        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~anniversary2025ClaimService~claimStatus'
+        response = self.do_request(url, {})
+        if response.get('success'):
+            obj = response.get('obj', None)
+            if obj == None: return False
+            currentAccountList = obj.get('currentAccountList', [])
+            if not currentAccountList:
+                print("当前没有卡片")
+            else:
+                print("当前卡片数量：")
+                for card in currentAccountList:
+                    currency = card.get('currency')
+                    totalAmount = card.get('totalAmount')
+                    balance = card.get('balance')
+                    if currency == 'DAI_BI':
+                        currency_name = '坐以待币'
+                    elif currency == 'CHENG_GONG':
+                        currency_name = '成功人士'
+                    elif currency == 'GAN_FAN':
+                        currency_name = '干饭圣体'
+                    elif currency == 'DING_ZHU':
+                        currency_name = '都顶得住'
+                    elif currency == 'ZHI_SHUI':
+                        currency_name = '心如止水'
+                    else:
+                        currency_name = currency
+                    print(f"卡片名称：{currency_name},数量：{balance}")
+
+            totalFortuneTimes = obj.get('totalFortuneTimes', 0)
+            print(f"总卡片数量：{totalFortuneTimes}")
+
+            return True
+        else:
+            print(f"查询失败：{response.get('errorMessage')}")
+            return False
 
     def EAR_END_2023_receiveTask(self):
         print(f'>>>开始领取【{self.title}】任务奖励')
@@ -1628,12 +1668,13 @@ class RUN:
         # # if is_activity_end_date(activity_end_date):
         # #     Log("今天采蜜活动截止兑换，请及时进行兑换")
         # #     send('顺丰速运挂机通知', "今天采蜜活动截止兑换，请及时进行兑换")
-        # # target_time = datetime(2024, 4, 8, 19, 0)
-        # # if datetime.now() < target_time:
-        # #     # self.EAR_END_2023_TaskList()
-        # #     self.anniversary2024_task()
-        # # else:
-        # #     print('周年庆活动已结束')
+        target_time = datetime(2025, 4, 8, 19, 0)
+        if datetime.now() < target_time:
+            self.EAR_END_2023_TaskList()
+            self.EAR_END_2023_query()
+            # self.anniversary2024_task()
+        else:
+            print('周年庆活动已结束')
         # #######################################
         # self.member_day_index()
         current_date = datetime.now().day
